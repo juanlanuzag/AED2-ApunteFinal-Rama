@@ -1,5 +1,7 @@
 \chapter{Complejidad: Notaci\'on asint\'otica}
 
+La principal motivaci\'on para usar la complejidad es poder comparar algoritmos, particultarmente para problemas grande (para los m\'as chicos no es tan importante). Es por esto que utilizamos la notaci\'on asint\'otica, que consiste en observar a una funci\'on cuando su dominio (el tama\~no del problema) tiende a infinito. Como la funci\'on de complejidad depende del tama\~no del problema, agruparemos las instancias de acuerdo a este parametro. Sin embargo, distintas instancias con el mismo tama\~no pueden llegar a comportarse de maneras muy diferentes. Es por esto que al analizar el algoritmo separamos el an\'alisis en mejor caso, peor caso y caso promedio.
+
 Las notaciones que usamos para describir la complejidad temporal asint\'otica de un algoritmo est\'an definidos en t\'erminos de funciones cuyos dominios son el conjunto de los n\'umeros naturales $N = \{0,1,2,...\}$. Estas notaciones son convenientes para describir el tiempo en el peor caso de una funci\'on $T(n)$, la cual usualmente esta definida solo en tama\~nos de entrada enteros. Usaremos la notaci\'on asint\'otica primariamente para describir los tiempos que insumen los algoritmos; sin embargo, se aplica a las funciones en general. La notaci\'on asint\'otica permite abstraerse de los detalle de la funci\'on en s\'i y tener una noci\'on aproximada, m\'as simplificada.
 
 \begin{SCfigure}[1][ht!]
