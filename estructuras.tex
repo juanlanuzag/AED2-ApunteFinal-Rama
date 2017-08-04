@@ -1,156 +1,5 @@
-\chapter{Complejidad y Estructuras de Datos}
+\chapter{Estructuras de Datos}
 
-\section{Complejidad}
-\subsection{Notaci\'on asint\'otica}
-
-Las notaciones que usamos para describir la complejidad temporal asint\'otica de un algoritmo est\'an definidos en t\'erminos de funciones cuyos dominios son el conjunto de los n\'umeros naturales $N = \{0,1,2,...\}$. Estas notaciones son convenientes para describir el tiempo en el peor caso de una funci\'on $T(n)$, la cual usualmente esta definida solo en tama\~nos de entrada enteros. Sin embargo a veces encontramos conveniente abusar de la notaci\'on asint\'otica en variadas formas. De todas formas, deberemos cerciorarnos de entender precisamente el significado de la notaci\'on, para que cuando hagamos abuso de la misma no estemos us\'andola de forma err\'onea. Usaremos la notaci\'on asint\'otica primariamente para describir los tiempos que insumen los algoritmos, sin embargo la notaci\'on asint\'otica aplica a funciones.
-
-\subsubsection{Conjunto / Notaci\'on Asint\'otica $\Theta$}
-
-Para una funci\'on $g(n)$ dada, notaremos a $\Theta(g(n))$ como el conjunto de funciones $f(n)$ que a partir de un numero $n_0 > 0$ sus valores pueden ser acotados entre $c_1g(n)$ y $c_2g(n)$ para alg\'un $c_1, c_2 \in \Re_{>0}$. Descripto formalmente quedar\'ia de la siguiente manera:
-
-\begin{equation*}
- \Theta(g(n)) = \{ f(n) : (\exists\ c_1, c_2, n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \}
-\end{equation*}
-
-~
-
-Una funci\'on pertenece al conjunto $\Theta(g(n))$ si existen constantes positivas $c_1$ y $c_2$ tal que $f(n)$ puede ser ``sandwicheada'' entre $c_1g(n)$ y $c_2g(n)$, para un $n$ suficientemente grande. Como $\Theta(g(n))$ es un conjunto, podremos escribir ``$f(n) \in \Theta(g(n))$'' para indicar que $f(n)$ es un miembro de $\Theta(g(n))$, a veces escribiremos ``$f(n) = \Theta(g(n))$'' para expresar exactamente lo mismo. Cuando una funci\'on $f(n)$ es acotada superiormente por otra funci\'on $c \cdot g(n)$ para alg\'un $c$ y a partir de alg\'un $n$, diremos que $f(n)$ esta \textbf{acotada asint\'oticamente} por $g(n)$ o que $f(n)$ tiene un \textbf{comportamiento asint\'otico} a $g(n)$. En el caso de $\Theta(g(n))$ diremos que $g(n)$ es una \textbf{cota asint\'oticamente ajustada} para $f(n)$.
-
-~
-
-\textbf{Propiedades de $\Theta$}:
-\begin{enumerate}
- \item Para cualquier funci\'on $f$ se tiene que $f \in \Theta(f)$.
- \item $\Theta(f) = \Theta(g) \iff f \in \Theta(g) \iff g \in \Theta(f)$.
- \item S\'i $f \in \Theta(g) \land g \in \Theta(h) \implies f \in \Theta(h)$.
- \item S\'i $f \in \Theta(g) \land f \in \Theta(h) \implies \Theta(g) = \Theta(h)$.
- \item Regla de la suma:
-
-	S\'i $f_1 \in \Theta(g) \land f_2 \in \Theta(h) \implies f_1 + f_2 \in \Theta(g+h)$.
- \item Regla del producto:
-
-	S\'i $f_1 \in \Theta(g) \land f_2 \in \Theta(h) \implies f_1 * f_2 \in \Theta(g*h)$.
- \item S\'i existe $\lim_{n \to \infty} \frac{f(n)}{g(n)} = k$, seg\'un los valores que tome $k$:
-	\begin{enumerate}
-	  \item S\'i $k \neq 0$ y $k < \infty$ entonces $\Theta(f) = \Theta(g)$.
-	  \item S\'i $k = 0$ entonces $\Theta(g) \neq \Theta(f)$.
-	\end{enumerate}
-\end{enumerate}
-
-\subsubsection{Conjunto / Notaci\'on Asint\'otica $O$}
-
-El conjunto $\Theta$ asint\'oticamente acota una funci\'on inferior y superiormente. Cuando solo tenemos una \textbf{cota asint\'otica superior}, usaremos el conjunto $O$. Para una funci\'on dada $g(n)$, denotaremos por $O(g(n))$ al conjunto de funciones tales que:
-
-\begin{equation*}
- O(g(n)) = \{ f(n) : (\exists\ c, n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq f(n) \leq c \cdot g(n) \}
-\end{equation*}
-
-~
-
-Es decir que para todos los valores de $n$ a la derecha de $n_0$, el valor de la funci\'on $f(n)$ est\'a por debajo de $c \cdot g(n)$. Escribiremos $f(n) = O(g(n))$ para indicar que una funci\'on $f(n)$ es un miembro del conjunto $O(g(n))$. Notar que $f(n) = \Theta(g(n))$ implica $f(n) = O(g(n))$, ya que la noci\'on de $\Theta$ es mucho mas fuerte que la noci\'on de $O$. Esto es, escrito en forma de teor\'ia de conjuntos, que vale la inclusi\'on $\Theta(g(n)) \subseteq O(g(n))$
-
-~
-
-\textbf{Propiedades de $O$}:
-\begin{enumerate}
- \item Para cualquier funci\'on $f$ se tiene que $f \in O(f)$.
- \item $f \in O(g) \implies O(f) \subset O(g)$.
- \item $O(f) = O(g) \iff f \in O(g) \land g \in O(f)$.
- \item S\'i $f \in O(g) \land g \in O(h) \implies f \in O(h)$.
- \item S\'i $f \in O(g) \land f \in O(h) \implies f \in O(min(g,h))$.
- \item Regla de la suma:
-
-	S\'i $f_1 \in O(g) \land f_2 \in O(h) \implies f_1 + f_2 \in O(max(g,h))$.
- \item Regla del producto:
-
-	S\'i $f_1 \in O(g) \land f_2 \in O(h) \implies f_1 * f_2 \in O(g*h)$.
- \item S\'i existe $\lim_{n \to \infty} \frac{f(n)}{g(n)} = k$, seg\'un los valores que tome $k$:
-	\begin{enumerate}
-	  \item S\'i $k \neq 0$ y $k < \infty$ entonces $O(f) = O(g)$.
-	  \item S\'i $k = 0$ entonces $f \in O(g)$, es decir, $O(f) \subset O(g)$, pero sin embargo se verifica que $g \notin O(f)$.
-	\end{enumerate}
-\end{enumerate}
-
-\subsubsection{Conjunto / Notaci\'on Asint\'otica $\Omega$}
-
-De forma tal como la notaci\'on $O$ proporciona una cota asint\'otica en una funci\'on, $\Omega$ provee una \textbf{cota asint\'otica inferior}. Para una funci\'on dada $g(n)$, notaremos a $\Omega(g(n))$ como el conjunto de funciones tales que:
-
-\begin{equation*}
- \Omega(g(n)) = \{ f(n) : (\exists\ c n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq c \cdot g(n) \leq f(n) \}
-\end{equation*}
-
-~
-
-Cuando decimos que el tiempo de un algoritmo es $\Omega(g(n))$, significa que no importa que particular entrada de tama\~no $n$ para cada valor de $n$, el tiempo que tardara el algoritmo con dicha entrara sera de al menos un numero constante de veces $g(n)$, para un $n$ suficientemente grande. Equivalentemente, esto nos da una cota temporal inferior para el mejor caso del algoritmo. De las definiciones de las notaciones asint\'oticas, es f\'acil ver que para cualquier dos funciones $f(n)$ y $g(n)$, tendremos que $f(n) = \Theta(g(n))$ si y solo si $f(n) = O(g(n))$ y $f(n) = \Omega(g(n))$. Usando una notaci\'on de teor\'ia de conjuntos esto seria equivalente a decir que $\Omega(g(n)) \cap O(g(n)) = \Theta(g(n))$, y si $f(n) \in \Omega(g(n)) \land f \in O(g(n))$ entonces $f(n)$ pertenecer\'a a ambos conjuntos, por lo que en particular pertenecer\'a a la intersecci\'on $\Theta(g(n))$.
-
-~
-
-\textbf{Propiedades de $\Omega$}:
-\begin{enumerate}
- \item Para cualquier funci\'on $f$ se tiene que $f \in \Omega(f)$.
- \item $f \in \Omega(g) \implies \Omega(f) \subset \Omega(g)$.
- \item $\Omega(f) = \Omega(g) \iff f \in \Omega(g) \land g \in \Omega(f)$.
- \item S\'i $f \in \Omega(g) \land g \in \Omega(h) \implies f \in \Omega(h)$.
- \item S\'i $f \in \Omega(g) \land f \in \Omega(h) \implies f \in \Omega(max(g,h))$.
- \item $f(n) = \Omega(g(n)) \iff g(n) = O(f(n))$
- \item Regla de la suma:
-
-	S\'i $f_1 \in \Omega(g) \land f_2 \in \Omega(h) \implies f_1 + f_2 \in \Omega(g+h)$.
- \item Regla del producto:
-
-	S\'i $f_1 \in \Omega(g) \land f_2 \in \Omega(h) \implies f_1 * f_2 \in \Omega(g*h)$.
- \item S\'i existe $\lim_{n \to \infty} \frac{f(n)}{g(n)} = k$, seg\'un los valores que tome $k$:
-	\begin{enumerate}
-	  \item S\'i $k \neq 0$ y $k < \infty$ entonces $\Omega(f) = \Omega(g)$.
-	  \item S\'i $k = 0$ entonces $g \in \Omega(f)$, es decir, $\Omega(g) \subset \Omega(f)$, pero sin embargo se verifica que $g \notin \Omega(f)$.
-	\end{enumerate}
-\end{enumerate}
-\subsubsection{Conjunto / Notaci\'on Asint\'otica No-Ajustada $o$}
-
-La cota superior asint\'otica provista por $O$ puede o no puede ser ajustada asint\'oticamente, por ejemplo la cota $2n = O(n^2)$ no lo es. Usaremos la notaci\'on $o$ (o chica) para definir una cota superior que no sea ajustada asint\'oticamente. Para una funci\'on dada $g(n)$, definiremos formalmente a $o(g(n))$ como el conjunto de funciones tales que:
-
-\begin{equation*}
- o(g(n)) = \{ f(n) : (\forall c \in \Re_{>0})(\exists\ n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq f(n) < c \cdot g(n) \}
-\end{equation*}
-
-~
-
-Las definiciones de $O$ (o grande) y $o$ (o chica) son sumamente similares. La diferencia principal yace en que $f(n) = O(g(n))$, la cota $0 \leq f(n) \leq c \cdot g(n)$ se mantiene para alguna constante $c > 0$ mientras que en $f(n) = o(n)$, la cota $0 \leq f(n) < c \cdot g(n)$ se mantiene para todas las constantes $c > 0$.
-En este sentido, la notaci\'on $o$ es m\'as fuerte que la notaci\'on $O$: s\'i $f(n) \in o(g(n)) \implies f(n) \in O(g(n))$, pero no vale la vuelta.
-
-Intuitivamente, en la notaci\'on $o$, la funci\'on $f(n)$ es dominada asint\'oticamente por $g(n)$ a medida que $n$ tiende a infinito, para cualquier constante $c$.
-
-\subsubsection{Conjunto / Notaci\'on Asint\'otica No-Ajustada $\omega$}
-
-Anal\'ogicamente, $\omega$ es a $\Omega$ como $o$ es a $O$. Usaremos la notaci\'on $\omega$ para referirnos a una cota inferior que no sea ajustada asint\'oticamente. Una forma de definirla en funci\'on a $o$ sera que $f(n) \in \omega(g(n))$ si y solo si $g(n) \in o(f(n))$. De todas formas formalmente definiremos a $\omega$ como el conjunto de funciones tal que dada una funci\'on $g(n)$ es:
-
-\begin{equation*}
- \omega(g(n)) = \{ f(n) : (\forall c \in \Re_{>0})(\exists\ n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq c \cdot g(n) < f(n) \}
-\end{equation*}
-
-~
-
-A medida que $n$ tiende a infinito la relaci\'on entre $f(n)/g(n)$ se vuelve arbitrariamente grande, es decir que tiende a infinito.
-
-\subsection{Funciones de Complejidad temporal comunes}
-A continuaci\'on se listan las principales categor\'ias de complejidad temporal, en orden creciente:
-\begin{enumerate}
- \item $O(1)$ \textbf{Complejidad constante}: es independiente de los datos de entrada.
- \item $O(lg\ lg\ n)$ \textbf{Complejidad sublogar\'itmica}
- \item $O(lg\ n)$ \textbf{Complejidad logar\'itmica}: suele aparecer en determinados algoritmos con iteraci\'on o recursi\'on (por ejemplo, b\'usqueda binaria). Todos los logaritmos, sea cual sea su base, son del mismo orden, por lo que se representan en cualquier base.
- \item $O(n^c)$ \textbf{Complejidad sublineal} ($0 < c < 1$)
- \item $O(n)$ \textbf{Complejidad lineal}: suele aparecer en bucles simples cuando la complejidad de las operaciones internas es constante o en algunos algoritmos con recursi\'on.
- \item $O(n \cdot lg\ n) = O(lg\ n!)$ \textbf{Complejidad lineal logar\'itmica}: en algunos algoritmos de ``Divide \& Conquer'' (por ejemplo, Mergesort).
- \item $O(n^2)$ \textbf{Complejidad cuadr\'atica}: aparece en bucles o recursiones doblemente anidados.
- \item $O(n^3)$ \textbf{Complejidad c\'ubica}: en bucles o recursiones triples.
- \item $O(n^k)$ \textbf{Complejidad polin\'omica} ($k \geq 1$).
- \item $O(2^n)$ \textbf{Complejidad exponencial}: suele aparecer en subprogramas recursivos que contengan dos o m\'as llamadas recursivas.
- \item $O(n!)$ \textbf{Complejidad factorial}
- \item $O(n^n)$ \textbf{Complejidad potencial exponencial}
-\end{enumerate}
-
-\newpage
 \section{Estructuras b\'asicas}
 \subsection{Lista}
 \subsection{Cola}
@@ -247,7 +96,7 @@ Sin embargo, podemos tener un balanceo ``casi'' perfecto, haciendo que todas las
 
 \subsubsection{Rotaciones}
 
-Las rotaciones son operaciones locales en un \'arbol de b\'usqueda que cambian la estructura de punteros del mismo preservando el invariante del \'arbol binario, son mayormente usadas en las distintas implementaciones de \'arboles balanceados para ajustar los factores de balanceo del mismo. Usaremos dos tipos de rotaciones, rotaciones hacia la izquierda y rotaciones hacia la derecha. Cuando hacemos una rotaci\'on hacia la izquierda en un nodo $x$, asumimos que su hijo derecho $y$ no es $NIL$; $x$ podr\'a ser cualquier nodo en el \'arbol cuyo hijo derecho no es $NIL$. La rotaci\'on hacia la izquierda ''pivotea`` alrededor del enlace de $x$ a $y$ y hace a $y$ la nueva ra\'iz del sub-\'arbol, dejando como hijo izquierdo de $y$ a $x$ y trasladando a el hijo izquierdo de $y$ al lugar del hijo derecho de $x$. 
+Las rotaciones son operaciones locales en un \'arbol de b\'usqueda que cambian la estructura de punteros del mismo preservando el invariante del \'arbol binario, son mayormente usadas en las distintas implementaciones de \'arboles balanceados para ajustar los factores de balanceo del mismo. Usaremos dos tipos de rotaciones, rotaciones hacia la izquierda y rotaciones hacia la derecha. Cuando hacemos una rotaci\'on hacia la izquierda en un nodo $x$, asumimos que su hijo derecho $y$ no es $NIL$; $x$ podr\'a ser cualquier nodo en el \'arbol cuyo hijo derecho no es $NIL$. La rotaci\'on hacia la izquierda ''pivotea`` alrededor del enlace de $x$ a $y$ y hace a $y$ la nueva ra\'iz del sub-\'arbol, dejando como hijo izquierdo de $y$ a $x$ y trasladando a el hijo izquierdo de $y$ al lugar del hijo derecho de $x$.
 
 \begin{SCfigure}[1][ht!]
  \centering
@@ -295,7 +144,7 @@ La estructura de datos del heap (binario) es un arreglo de objetos que represent
 
 ~
 
-La ra\'iz del \'arbol estar\'a situada en $A[1]$, y dado el \'indice $i$ de un nodo, f\'acilmente podremos computar los \'indices de su padre, hijo derecho e izquierdo. El c\'omputo del \'indice del padre estar\'a definido de la forma $Padre(i) = \lfloor i/2 \rfloor$, mientras que los \'indices de los hijos podr\'an ser computados de la forma $Izquierda(i) = 2i$ y $Derecha(i) = 2i+1$, en donde $i \in [1..A.heap\_size]$. Hay dos tipos de heaps binarios, max-heaps y min-heaps. En ambos casos, los valores de los nodos satisfacen el invariante del heap, el cual depende del tipo de heap con el que trabajemos. En un max-heap, el invariante del max-heap nos dice que para cada nodo $i$ que no sea la ra\'iz se debe cumplir que $A[Padre(i)] \geq A[i]$, esto es que el valor de un nodo debe ser como m\'aximo el valor de su padre. Entonces, el m\'aximo en un max-heap estar\'a guardado en la ra\'iz, y el sub-\'arbol con ra\'iz en un nodo no podr\'a contener valores mas grandes que el nodo en si mismo. Un min-heap esta 
+La ra\'iz del \'arbol estar\'a situada en $A[1]$, y dado el \'indice $i$ de un nodo, f\'acilmente podremos computar los \'indices de su padre, hijo derecho e izquierdo. El c\'omputo del \'indice del padre estar\'a definido de la forma $Padre(i) = \lfloor i/2 \rfloor$, mientras que los \'indices de los hijos podr\'an ser computados de la forma $Izquierda(i) = 2i$ y $Derecha(i) = 2i+1$, en donde $i \in [1..A.heap\_size]$. Hay dos tipos de heaps binarios, max-heaps y min-heaps. En ambos casos, los valores de los nodos satisfacen el invariante del heap, el cual depende del tipo de heap con el que trabajemos. En un max-heap, el invariante del max-heap nos dice que para cada nodo $i$ que no sea la ra\'iz se debe cumplir que $A[Padre(i)] \geq A[i]$, esto es que el valor de un nodo debe ser como m\'aximo el valor de su padre. Entonces, el m\'aximo en un max-heap estar\'a guardado en la ra\'iz, y el sub-\'arbol con ra\'iz en un nodo no podr\'a contener valores mas grandes que el nodo en si mismo. Un min-heap esta
 organizado de la forma opuesta, el invariante de min-heap nos dice que para cada nodo $i$ distinto de la ra\'iz se debe cumplir $A[Padre(i)] \leq A[i]$, por lo que el elemento m\'inimo de un min-heap estar\'a en la ra\'iz.
 
 ~
@@ -395,11 +244,11 @@ La rotaciones en el caso de inserci\'on no influyen en los antepasados de $x$, p
 
 \subsubsection{Eliminaci\'on}
 
-El borrado en un AVL en un principio se realiza de la misma forma que en un \'arbol binario, luego de haberlo hecho se ejecuta un recalculo de los factores y un rebalanceo sobre la rama que se vio afectada por el mismo. Una diferencia importante entre la inserci\'on y el borrado es que a la hora de realizar los rebalanceos en la inserci\'on los antepasados de un nodo $x$ desbalanceado no se ver\'an influenciados mientras que durante un rebalanceo luego de un borrado si lo har\'an. 
+El borrado en un AVL en un principio se realiza de la misma forma que en un \'arbol binario, luego de haberlo hecho se ejecuta un recalculo de los factores y un rebalanceo sobre la rama que se vio afectada por el mismo. Una diferencia importante entre la inserci\'on y el borrado es que a la hora de realizar los rebalanceos en la inserci\'on los antepasados de un nodo $x$ desbalanceado no se ver\'an influenciados mientras que durante un rebalanceo luego de un borrado si lo har\'an.
 
 ~
 
-Esto \'ultimo se debe a que durante la inserci\'on estaremos agregando una hoja nueva, y por la naturaleza del AVL el balanceo de un sub-\'arbol $T$ con su raiz en $x$ ocasiona que la altura de $T$ se acorte. Esto significa que de cierta forma mediante el balanceo estaremos cancelando el incremento de altura en el sub-\'arbol $T$ ocasionado por la inserci\'on, por lo que los antepasados de $x$ no sufren modificaciones. En el caso de una eliminaci\'on, el balanceo ocasionar\'a tambi\'en que la altura del sub-\'arbol se acorte pero no habr\'a compensaci\'on por una inserci\'on, lo que decantara en una modificaci\'on de los factores de balanceo de los antepasados de $x$, pudiendo esto llegar a provocar $lg(n)$ balanceos. La complejidad de la operaci\'on de eliminaci\'on sera entonces de $O(2lg(n)) \subseteq O(lg(n))$ ya que tendremos que buscar el nodo a eliminar, actualizar los factores de balanceo y, en el peor caso, balancear toda la rama afectada (podremos actualizar los factores y rebalancear sin iterar 
+Esto \'ultimo se debe a que durante la inserci\'on estaremos agregando una hoja nueva, y por la naturaleza del AVL el balanceo de un sub-\'arbol $T$ con su raiz en $x$ ocasiona que la altura de $T$ se acorte. Esto significa que de cierta forma mediante el balanceo estaremos cancelando el incremento de altura en el sub-\'arbol $T$ ocasionado por la inserci\'on, por lo que los antepasados de $x$ no sufren modificaciones. En el caso de una eliminaci\'on, el balanceo ocasionar\'a tambi\'en que la altura del sub-\'arbol se acorte pero no habr\'a compensaci\'on por una inserci\'on, lo que decantara en una modificaci\'on de los factores de balanceo de los antepasados de $x$, pudiendo esto llegar a provocar $lg(n)$ balanceos. La complejidad de la operaci\'on de eliminaci\'on sera entonces de $O(2lg(n)) \subseteq O(lg(n))$ ya que tendremos que buscar el nodo a eliminar, actualizar los factores de balanceo y, en el peor caso, balancear toda la rama afectada (podremos actualizar los factores y rebalancear sin iterar
 nuevamente).
 
 \subsubsection{Peor caso en eliminaci\'on}
@@ -412,7 +261,7 @@ Para lograr caracterizar un peor caso en el rebalanceo luego de la eliminaci\'on
  \caption*{\newline \footnotesize En la primera figura se puede apreciar el nodo $y$ a ser eliminado, junto con su padre $z$ y el FDB de $z$ en el hex\'agono, la altura total es de $h+1$. En la segunda figura se puede apreciar el estado luego de la eliminaci\'on del nodo $y$ junto con el hijo de derecho de $z$ expandido y los FDB correspondientes a cada nodo recalculados. Finalmente, en la tercera figura se observa el estado luego de la rotaci\'on, lo que genera un decremento en la altura del sub-\'arbol.}
 \end{SCfigure}
 
-Para compensar esto ejecutaremos una rotaci\'on hacia la izquierda entre los nodos $z$ y $der(z)$, lo que dejara a $z$ como hijo izquierdo de $der(z)$ y al hijo izquierdo de $der(z)$ como hijo derecho de $z$. Luego de la rotaci\'on los FDB de ambos nodos quedar\'an en $0$ pero la altura del \'arbol se ver\'a reducida en $1$, lo que provocar\'a que el padre original de $z$ (el abuelo de $y$), cambie su FDB de $1$ a $2$. De la misma forma deberemos continuar balanceando el resto de los nodos hasta llegar a la ra\'iz, en donde tendremos que $FDB(izq(raiz)) = 0$, $FDB(der(raiz)) = 1$ y $FDB(raiz) = 2$. Para resolver esta ultima situac\'ion podremos ejecutar una rotaci\'on hacia la derecha entre $izq(raiz)$ y $raiz$, o una rotaci\'on hacia la izquierda entre $der(raiz)$ y $raiz$. Finalmente habremos realizado exactamente $lg(alt(y))$ rotaciones, en donde $alt(y)$ es distancia a la que se encontraba $y$ de la ra\'iz, es decir su altura o nivel. Dentro de este esquema, si seleccionamos a $y$ como uno de los nodos a 
+Para compensar esto ejecutaremos una rotaci\'on hacia la izquierda entre los nodos $z$ y $der(z)$, lo que dejara a $z$ como hijo izquierdo de $der(z)$ y al hijo izquierdo de $der(z)$ como hijo derecho de $z$. Luego de la rotaci\'on los FDB de ambos nodos quedar\'an en $0$ pero la altura del \'arbol se ver\'a reducida en $1$, lo que provocar\'a que el padre original de $z$ (el abuelo de $y$), cambie su FDB de $1$ a $2$. De la misma forma deberemos continuar balanceando el resto de los nodos hasta llegar a la ra\'iz, en donde tendremos que $FDB(izq(raiz)) = 0$, $FDB(der(raiz)) = 1$ y $FDB(raiz) = 2$. Para resolver esta ultima situac\'ion podremos ejecutar una rotaci\'on hacia la derecha entre $izq(raiz)$ y $raiz$, o una rotaci\'on hacia la izquierda entre $der(raiz)$ y $raiz$. Finalmente habremos realizado exactamente $lg(alt(y))$ rotaciones, en donde $alt(y)$ es distancia a la que se encontraba $y$ de la ra\'iz, es decir su altura o nivel. Dentro de este esquema, si seleccionamos a $y$ como uno de los nodos a
 nivel $\lfloor lg(n) \rfloor$ del \'arbol, entonces tendremos el peor caso de balanceo, por lo que la complejidad de balanceo luego de una eliminaci\'on ser\'a de $O(lg(n))$.
 
 \subsubsection{Complejidades}
@@ -487,8 +336,8 @@ Mostraremos los tres casos mediante un ejemplo al cual se le remover\'a la ra\'i
  \includegraphics[width=1\textwidth]{graficos/EliminacionArboles234.pdf}
 \end{SCfigure}
 
-Como queremos remover el $40$, el objetivo sera reemplazarlo por el $42$ que se encuentra en una de las hojas del \'arbol. Una vez parados en el 1-nodo que contiene la clave $50$, veremos que aplica el tercer caso ya que el padre es la ra\'iz, y el \'unico hermano inmediato tiene solo una clave, por lo que haremos una fusi\'on como se aprecia en la segunda figura. Luego descenderemos por la rama dirigida hacia el 1-nodo que contiene el $43$, veremos que en esta instancia el primer caso es el que se ajusta, por lo cual realizaremos una rotaci\'on para terminar con un 2-nodo como se aprecia en la tercera figura. Finalmente en la tercera figura habremos descendido por el nodo que contiene a $42$ pero todav\'ia no podremos usarlo para reemplazar a $40$ ya que es un 1-nodo. En esta situaci\'on el caso que se ajustara ser\'a el segundo, ya que el \'unico hermano inmediato es el $47$, por lo que bajaremos el $43$ y lo fusionaremos con el $47$, llegando as\'i a la cuarta figura en donde podremos eliminar la clave de 
-la ra\'iz y 
+Como queremos remover el $40$, el objetivo sera reemplazarlo por el $42$ que se encuentra en una de las hojas del \'arbol. Una vez parados en el 1-nodo que contiene la clave $50$, veremos que aplica el tercer caso ya que el padre es la ra\'iz, y el \'unico hermano inmediato tiene solo una clave, por lo que haremos una fusi\'on como se aprecia en la segunda figura. Luego descenderemos por la rama dirigida hacia el 1-nodo que contiene el $43$, veremos que en esta instancia el primer caso es el que se ajusta, por lo cual realizaremos una rotaci\'on para terminar con un 2-nodo como se aprecia en la tercera figura. Finalmente en la tercera figura habremos descendido por el nodo que contiene a $42$ pero todav\'ia no podremos usarlo para reemplazar a $40$ ya que es un 1-nodo. En esta situaci\'on el caso que se ajustara ser\'a el segundo, ya que el \'unico hermano inmediato es el $47$, por lo que bajaremos el $43$ y lo fusionaremos con el $47$, llegando as\'i a la cuarta figura en donde podremos eliminar la clave de
+la ra\'iz y
 reemplazarlo por el $42$.
 
 \subsubsection{Complejidades}
@@ -538,25 +387,25 @@ Las rotaciones se dar\'an en tres casos:
 
 \begin{enumerate}
  \item \textbf{Zig-zag} $X$ es el hijo izquierdo de un hijo derecho ($LR$) o su caso espejo ($RL$). Siendo $P$ el padre de $X$ y $G$ su abuelo, para resolver este caso haremos una rotaci\'on hacia la izquierda entre $P$ y $X$ y luego una rotaci\'on hacia la derecha entre $X$ y $G$. En el caso espejo realizaremos una rotaci\'on hacia la derecha y luego una hacia la izquierda, dejando a $X$ como la ra\'iz del sub-\'arbol.
- 
+
  \begin{SCfigure}[1][ht!]
  \centering
  \includegraphics[width=0.5\textwidth]{graficos/ZigZagSplay.pdf}
  \end{SCfigure}
- 
+
  \item \textbf{Zig-zig} Este caso tiene una diferencia muy sutil con el caso anterior. Si $X$ es el hijo izquierdo de un hizo izquierdo ($LL$) o su caso espejo ($RR$). Siendo $P$ el padre de $X$ y $G$ su abuelo, para resolver este caso haremos primero una rotaci\'on entre $P$ y $G$ hacia la derecha, y luego ejecutaremos otra rotaci\'on hacia la derecha entre $X$ y $P$, dejando a $X$ como la ra\'iz del sub-\'arbol.
- 
+
  \begin{SCfigure}[1][ht!]
  \centering
  \includegraphics[width=0.5\textwidth]{graficos/ZigZigSplay.pdf}
  \end{SCfigure}
- 
+
  ~
- 
+
  \item \textbf{Zig} Este es un caso final que se origina al tener a $X$ a una distancia original impar de la ra\'iz en el momento del acceso. Para solucionar esto, si $X$ es el hijo izquierdo haremos una rotaci\'on hacia la derecha entre $X$ y la ra\'iz, o si $X$ es el hijo derecho haremos una rotaci\'on hacia la izquierda.
 \end{enumerate}
 
-Los casos $1$ y $2$ se repetir\'an hasta que $X$ sea la ra\'iz del \'arbol o un hijo de la ra\'iz, lo que dar\'a lugar al caso $3$. En los casos donde tengamos un \'arbol totalmente degenerado hacia un lado (de forma tal que sea equivalente a una lista), la b\'usqueda nos costara tiempo $O(n)$ pero las rotaciones Zig-zig lograr\'an acortar la altura del \'arbol a la mitad, de forma tal de que las siguientes operaciones de consulta sean mucho mas eficientes. Esto ultimo se logra gracias a la forma de la rotaci\'on Zig-zig, la cual rota el abuelo y su padre antes que el hijo y su padre, si esto si hiciese en orden inverso obtendr\'iamos un \'arbol totalmente degenerado hacia la direcci\'on opuesta original. 
+Los casos $1$ y $2$ se repetir\'an hasta que $X$ sea la ra\'iz del \'arbol o un hijo de la ra\'iz, lo que dar\'a lugar al caso $3$. En los casos donde tengamos un \'arbol totalmente degenerado hacia un lado (de forma tal que sea equivalente a una lista), la b\'usqueda nos costara tiempo $O(n)$ pero las rotaciones Zig-zig lograr\'an acortar la altura del \'arbol a la mitad, de forma tal de que las siguientes operaciones de consulta sean mucho mas eficientes. Esto ultimo se logra gracias a la forma de la rotaci\'on Zig-zig, la cual rota el abuelo y su padre antes que el hijo y su padre, si esto si hiciese en orden inverso obtendr\'iamos un \'arbol totalmente degenerado hacia la direcci\'on opuesta original.
 
 \subsubsection{Max/Min, Inserci\'on y Eliminaci\'on}
 
@@ -579,7 +428,7 @@ Los Tries son arboles (K+1)-arios para alfabetos de K elementos, o lo que es lo 
  \item Adecuados para claves de tamaño variable.
 \end{itemize}
 
-La idea principal del Trie es que los ejes del \'arbol representan componentes de las claves, y cada sub\'arbol representa al conjunto de claves que comienza con las etiquetas de los ejes que llevan hasta \'el. 
+La idea principal del Trie es que los ejes del \'arbol representan componentes de las claves, y cada sub\'arbol representa al conjunto de claves que comienza con las etiquetas de los ejes que llevan hasta \'el.
 De esta forma, se busca no hacer comparaciones de claves completas, sino de partes de ellas. Es decir, s\'i las claves son strings, trabajar con caracteres.
 
 Haciendo ciertas suposiciones, la b\'usqueda o inserci\'on en un \'arbol de \textit{n} claves de \textit{b} bits necesita en promedio \textit{log n} comparaciones de clave completa, y \textit{b} en el peor caso.
@@ -615,7 +464,7 @@ Consiste en colapsar las cadenas de caracteres o bits que llevan hacia hojas.
 Ejemplo: en un trie con dos claves ``Algo'' y ``Algoritmos'', el camino que lleva desde la primer `o' hasta la `s' puede ser compactado en un solo nodo para ahorrar espacio.
 \subsubsection{Tries Patricia}
 Son Tries m\'as compactos que los mencionados anteriormente. \textit{Patricia} es un acr\'onimo de: Practical Algorithm To Retrieve Information Coded in Alphanumeric.
-La idea es colapsar todas las cadenas, no solo las que llevan a hojas (un eje ahora puede representar una cadena). 
+La idea es colapsar todas las cadenas, no solo las que llevan a hojas (un eje ahora puede representar una cadena).
 Ejemplo: en un trie con dos claves ``Algoritmo'' y ``Algoritmos'', el camino que lleva desde el nodo `A' hasta la \'ultima `o' puede ser compactado en un solo nodo para ahorrar espacio.
 
 \begin{center}
@@ -646,7 +495,7 @@ Un \'arbol RB con $n$ nodos internos tiene como mucho altura $2\cdot lg(n+1)$.
 
 ~
 
-\textbf{Prueba} Empezaremos mostrando que el sub-\'arbol con su ra\'iz en cualquier nodo $x$ contiene al menos $2^{bh(x)}-1$ nodos internos, esta sera nuestra hip\'otesis inductiva y probaremos la propiedad utilizando inducci\'on en la altura de $x$. 
+\textbf{Prueba} Empezaremos mostrando que el sub-\'arbol con su ra\'iz en cualquier nodo $x$ contiene al menos $2^{bh(x)}-1$ nodos internos, esta sera nuestra hip\'otesis inductiva y probaremos la propiedad utilizando inducci\'on en la altura de $x$.
 
 Para el caso base, si la altura de $x$ es $0$, entonces $x$ debe ser una hoja ($T.nil$), y el sub-\'arbol con su ra\'iz en $x$ efectivamente contiene al menos $2^{bf(h)}-1 = 2^0 -1 = 0$ nodos internos. Para el paso inductivo, consideraremos un nodo $x$ que tiene una altura positiva y es un nodo interno con $2$ hijos (recordar que estamos considerando a los $NIL$ como hijos). Cada hijo tiene una black-height de $bh(x)$ o $bh(x)-1$, dependiendo en si su color es rojo o negro, es decir si suma o no a la black-height. Dado que la altura de un hijo de $x$ es menor que la altura de $x$ en si mismo, podremos aplicar la hip\'otesis inductiva para concluir que cada hijo tiene al menos $2^{bh(x)-1}-1$ nodos internos. Entonces, el sub-\'arbol con su ra\'iz en $x$ contiene al menos $(2^{bh(x)-1}-1) + (2^{bh(x)-1}-1) + 1 = 2^{bh(x)}-1$ nodos internos, lo que prueba la propiedad.
 
@@ -681,7 +530,7 @@ Deberemos considerar seis casos para la reacomodaci\'on, la cual se realizara en
  \includegraphics[width=0.75\textwidth]{graficos/RBCaso3.pdf}
  \caption*{\newline \footnotesize $z$, $p$ y $a$ representan el nodo nuevo $z$, su padre y su abuelo, respectivamente. En el primer momento estaremos en el caso $2$ y una vez ejecutada la rotaci\'on pasaremos al segundo momento. Si bien no cambiaremos los nombres por claridad, el puntero $z$ ahora estar\'a apuntando a $p$. En este momento estar\'iamos en el caso $3$, haciendo una rotaci\'on hacia la derecha mas pasar\'iamos al ultimo estado que cumplir\'a todas las propiedades.}
 \end{SCfigure}
- 
+
 Dado que la altura de un \'arbol RB de $n$ nodos pertenece a $O(lg(n))$, la inserci\'on principal del nuevo nodo $z$ tomar\'a tiempo $O(lg(n))$. Cuando ejecutamos la reacomodaci\'on, solo es necesario ejecutarla nuevamente cuando ocurre el primer caso, y cuando sucede el puntero de $z$ se mueve dos niveles hacia arriba del \'arbol. Por lo tanto el numero de veces m\'aximo que deberemos ejecutar la reacomodaci\'on sera $O(lg(n))$, por lo que la inserci\'on tomar\'a en total $O(lg(n))$.
 
 \subsubsection{Eliminaci\'on}
