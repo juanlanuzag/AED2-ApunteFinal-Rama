@@ -154,18 +154,14 @@ entonces $(\forall\ a \in A)\ P(a)$
 ~
 
 \textbf{Demostraci\'on}:
-\begin{itemize}
- \item Supongamos que $\prec$ define un orden bien fundado sobre $A$, que P cumple (1) y (2) pero que no vale para todos los elementos de $A$.
- \item Como $\prec$ es un orden bien fundado, el conjunto $\{a \in A | \lnot P(a)\}$ tiene un elemento m\'nimo, que llamaremos $m$.
- \item Si $m$ es un m\'inimo para $A$, entonces contradice (1).
- \item Si no lo es, entonces tiene predecesores. Como $m$ era el m\'inimo elemento que no cumpl\'ia $P$, todos sus predecesores s\'i lo cumplen. Pero eso contradice (2). $\square$
-\end{itemize}
+Supongamos que $\prec$ define un orden bien fundado sobre $A$, que P cumple (1) y (2) pero que no vale para todos los elementos de $A$. Como $\prec$ es un orden bien fundado, el conjunto $\{a \in A | \lnot P(a)\}$ tiene un elemento m\'nimo, que llamaremos $m$.
+Si $m$ es un m\'inimo para $A$, entonces contradice (1). Si no lo es, entonces tiene predecesores. Como $m$ era el m\'inimo elemento que no cumpl\'ia $P$, todos sus predecesores s\'i lo cumplen. Pero eso contradice (2). $\square$
 
 
 \subsubsection{Esquema de inducci\'on estructural}
 
 \begin{itemize}
- \item Llamaremos $g_1,...,g_k$ a los generadores del tipo $T$ que no toman como par\'ametro una instancia de $T$, es decir que estos ser\'an los generadores base.
+ \item Llamaremos $g_1,...,g_k$ a los generadores del tipo $T$ que \textit{NO} toman como par\'ametro una instancia de $T$, es decir que estos ser\'an los generadores base.
  \item Llamaremos $g_{k+1},...,g_n$ a los que si toman una instancia de $T$, es decir que estos ser\'an los generadores recursivos.
  \item El primer paso para la inducci\'on es probar el caso base, es decir $P(g_1) \land ... \land P(g_k)$ debe ser verdadero.
  \item Luego probaremos el paso inductivo, esto es $(\forall i : T) [P(i) \implies P(g_{k+1}(i))] \land ... \land (\forall i : T) [P(i) \implies P(g_{n}(i))]$. Esto es, para cada uno de los generadores recursivos, pruebo el paso inductivo con todas las instancias posibles como precedente de forma tal de obtener todas sus posibles variantes (por simplificar no se incluyo la variaci\'on de los argumentos de los generadores). De esto podremos concluir que $(\forall i : T) P(i)$.
