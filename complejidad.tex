@@ -1,10 +1,13 @@
-\chapter{Complejidad}
+\chapter{Complejidad: Notaci\'on asint\'otica}
 
-\section{Notaci\'on asint\'otica}
+Las notaciones que usamos para describir la complejidad temporal asint\'otica de un algoritmo est\'an definidos en t\'erminos de funciones cuyos dominios son el conjunto de los n\'umeros naturales $N = \{0,1,2,...\}$. Estas notaciones son convenientes para describir el tiempo en el peor caso de una funci\'on $T(n)$, la cual usualmente esta definida solo en tama\~nos de entrada enteros. Usaremos la notaci\'on asint\'otica primariamente para describir los tiempos que insumen los algoritmos; sin embargo, se aplica a las funciones en general. La notaci\'on asint\'otica permite abstraerse de los detalle de la funci\'on en s\'i y tener una noci\'on aproximada, m\'as simplificada.
 
-Las notaciones que usamos para describir la complejidad temporal asint\'otica de un algoritmo est\'an definidos en t\'erminos de funciones cuyos dominios son el conjunto de los n\'umeros naturales $N = \{0,1,2,...\}$. Estas notaciones son convenientes para describir el tiempo en el peor caso de una funci\'on $T(n)$, la cual usualmente esta definida solo en tama\~nos de entrada enteros. Sin embargo a veces encontramos conveniente abusar de la notaci\'on asint\'otica en variadas formas. De todas formas, deberemos cerciorarnos de entender precisamente el significado de la notaci\'on, para que cuando hagamos abuso de la misma no estemos us\'andola de forma err\'onea. Usaremos la notaci\'on asint\'otica primariamente para describir los tiempos que insumen los algoritmos, sin embargo la notaci\'on asint\'otica aplica a funciones.
+\begin{SCfigure}[1][ht!]
+ \centering
+ \includegraphics[width=0.9\textwidth]{graficos/complejidad.png}
+\end{SCfigure}
 
-\subsection{Conjunto / Notaci\'on Asint\'otica $\Theta$}
+\section{Notaci\'on $\Theta$}
 
 Para una funci\'on $g(n)$ dada, notaremos a $\Theta(g(n))$ como el conjunto de funciones $f(n)$ que a partir de un numero $n_0 > 0$ sus valores pueden ser acotados entre $c_1g(n)$ y $c_2g(n)$ para alg\'un $c_1, c_2 \in \Re_{>0}$. Descripto formalmente quedar\'ia de la siguiente manera:
 
@@ -14,8 +17,7 @@ Para una funci\'on $g(n)$ dada, notaremos a $\Theta(g(n))$ como el conjunto de f
 
 ~
 
-Una funci\'on pertenece al conjunto $\Theta(g(n))$ si existen constantes positivas $c_1$ y $c_2$ tal que $f(n)$ puede ser ``sandwicheada'' entre $c_1g(n)$ y $c_2g(n)$, para un $n$ suficientemente grande. Como $\Theta(g(n))$ es un conjunto, podremos escribir ``$f(n) \in \Theta(g(n))$'' para indicar que $f(n)$ es un miembro de $\Theta(g(n))$, a veces escribiremos ``$f(n) = \Theta(g(n))$'' para expresar exactamente lo mismo. Cuando una funci\'on $f(n)$ es acotada superiormente por otra funci\'on $c \cdot g(n)$ para alg\'un $c$ y a partir de alg\'un $n$, diremos que $f(n)$ esta \textbf{acotada asint\'oticamente} por $g(n)$ o que $f(n)$ tiene un \textbf{comportamiento asint\'otico} a $g(n)$. En el caso de $\Theta(g(n))$ diremos que $g(n)$ es una \textbf{cota asint\'oticamente ajustada} para $f(n)$.
-
+Como $\Theta(g(n))$ es un conjunto, podremos escribir ``$f(n) \in \Theta(g(n))$'' para indicar que $f(n)$ es un miembro de $\Theta(g(n))$, a veces escribiremos ``$f(n) = \Theta(g(n))$'' para expresar exactamente lo mismo.
 ~
 
 \textbf{Propiedades de $\Theta$}:
@@ -24,12 +26,6 @@ Una funci\'on pertenece al conjunto $\Theta(g(n))$ si existen constantes positiv
  \item $\Theta(f) = \Theta(g) \iff f \in \Theta(g) \iff g \in \Theta(f)$.
  \item S\'i $f \in \Theta(g) \land g \in \Theta(h) \implies f \in \Theta(h)$.
  \item S\'i $f \in \Theta(g) \land f \in \Theta(h) \implies \Theta(g) = \Theta(h)$.
- \item Regla de la suma:
-
-	S\'i $f_1 \in \Theta(g) \land f_2 \in \Theta(h) \implies f_1 + f_2 \in \Theta(g+h)$.
- \item Regla del producto:
-
-	S\'i $f_1 \in \Theta(g) \land f_2 \in \Theta(h) \implies f_1 * f_2 \in \Theta(g*h)$.
  \item S\'i existe $\lim_{n \to \infty} \frac{f(n)}{g(n)} = k$, seg\'un los valores que tome $k$:
 	\begin{enumerate}
 	  \item S\'i $k \neq 0$ y $k < \infty$ entonces $\Theta(f) = \Theta(g)$.
@@ -37,7 +33,7 @@ Una funci\'on pertenece al conjunto $\Theta(g(n))$ si existen constantes positiv
 	\end{enumerate}
 \end{enumerate}
 
-\subsection{Conjunto / Notaci\'on Asint\'otica $O$}
+\section{Notaci\'on $O$}
 
 El conjunto $\Theta$ asint\'oticamente acota una funci\'on inferior y superiormente. Cuando solo tenemos una \textbf{cota asint\'otica superior}, usaremos el conjunto $O$. Para una funci\'on dada $g(n)$, denotaremos por $O(g(n))$ al conjunto de funciones tales que:
 
@@ -58,12 +54,6 @@ Es decir que para todos los valores de $n$ a la derecha de $n_0$, el valor de la
  \item $O(f) = O(g) \iff f \in O(g) \land g \in O(f)$.
  \item S\'i $f \in O(g) \land g \in O(h) \implies f \in O(h)$.
  \item S\'i $f \in O(g) \land f \in O(h) \implies f \in O(min(g,h))$.
- \item Regla de la suma:
-
-	S\'i $f_1 \in O(g) \land f_2 \in O(h) \implies f_1 + f_2 \in O(max(g,h))$.
- \item Regla del producto:
-
-	S\'i $f_1 \in O(g) \land f_2 \in O(h) \implies f_1 * f_2 \in O(g*h)$.
  \item S\'i existe $\lim_{n \to \infty} \frac{f(n)}{g(n)} = k$, seg\'un los valores que tome $k$:
 	\begin{enumerate}
 	  \item S\'i $k \neq 0$ y $k < \infty$ entonces $O(f) = O(g)$.
@@ -71,7 +61,7 @@ Es decir que para todos los valores de $n$ a la derecha de $n_0$, el valor de la
 	\end{enumerate}
 \end{enumerate}
 
-\subsection{Conjunto / Notaci\'on Asint\'otica $\Omega$}
+\section{Notaci\'on $\Omega$}
 
 De forma tal como la notaci\'on $O$ proporciona una cota asint\'otica en una funci\'on, $\Omega$ provee una \textbf{cota asint\'otica inferior}. Para una funci\'on dada $g(n)$, notaremos a $\Omega(g(n))$ como el conjunto de funciones tales que:
 
@@ -93,58 +83,12 @@ Cuando decimos que el tiempo de un algoritmo es $\Omega(g(n))$, significa que no
  \item S\'i $f \in \Omega(g) \land g \in \Omega(h) \implies f \in \Omega(h)$.
  \item S\'i $f \in \Omega(g) \land f \in \Omega(h) \implies f \in \Omega(max(g,h))$.
  \item $f(n) = \Omega(g(n)) \iff g(n) = O(f(n))$
- \item Regla de la suma:
-
-	S\'i $f_1 \in \Omega(g) \land f_2 \in \Omega(h) \implies f_1 + f_2 \in \Omega(g+h)$.
- \item Regla del producto:
-
-	S\'i $f_1 \in \Omega(g) \land f_2 \in \Omega(h) \implies f_1 * f_2 \in \Omega(g*h)$.
  \item S\'i existe $\lim_{n \to \infty} \frac{f(n)}{g(n)} = k$, seg\'un los valores que tome $k$:
 	\begin{enumerate}
 	  \item S\'i $k \neq 0$ y $k < \infty$ entonces $\Omega(f) = \Omega(g)$.
 	  \item S\'i $k = 0$ entonces $g \in \Omega(f)$, es decir, $\Omega(g) \subset \Omega(f)$, pero sin embargo se verifica que $g \notin \Omega(f)$.
 	\end{enumerate}
 \end{enumerate}
-\subsection{Conjunto / Notaci\'on Asint\'otica No-Ajustada $o$}
 
-La cota superior asint\'otica provista por $O$ puede o no puede ser ajustada asint\'oticamente, por ejemplo la cota $2n = O(n^2)$ no lo es. Usaremos la notaci\'on $o$ (o chica) para definir una cota superior que no sea ajustada asint\'oticamente. Para una funci\'on dada $g(n)$, definiremos formalmente a $o(g(n))$ como el conjunto de funciones tales que:
-
-\begin{equation*}
- o(g(n)) = \{ f(n) : (\forall c \in \Re_{>0})(\exists\ n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq f(n) < c \cdot g(n) \}
-\end{equation*}
-
-~
-
-Las definiciones de $O$ (o grande) y $o$ (o chica) son sumamente similares. La diferencia principal yace en que $f(n) = O(g(n))$, la cota $0 \leq f(n) \leq c \cdot g(n)$ se mantiene para alguna constante $c > 0$ mientras que en $f(n) = o(n)$, la cota $0 \leq f(n) < c \cdot g(n)$ se mantiene para todas las constantes $c > 0$.
-En este sentido, la notaci\'on $o$ es m\'as fuerte que la notaci\'on $O$: s\'i $f(n) \in o(g(n)) \implies f(n) \in O(g(n))$, pero no vale la vuelta.
-
-Intuitivamente, en la notaci\'on $o$, la funci\'on $f(n)$ es dominada asint\'oticamente por $g(n)$ a medida que $n$ tiende a infinito, para cualquier constante $c$.
-
-\subsection{Conjunto / Notaci\'on Asint\'otica No-Ajustada $\omega$}
-
-Anal\'ogicamente, $\omega$ es a $\Omega$ como $o$ es a $O$. Usaremos la notaci\'on $\omega$ para referirnos a una cota inferior que no sea ajustada asint\'oticamente. Una forma de definirla en funci\'on a $o$ sera que $f(n) \in \omega(g(n))$ si y solo si $g(n) \in o(f(n))$. De todas formas formalmente definiremos a $\omega$ como el conjunto de funciones tal que dada una funci\'on $g(n)$ es:
-
-\begin{equation*}
- \omega(g(n)) = \{ f(n) : (\forall c \in \Re_{>0})(\exists\ n_0 \in \Re_{>0}) \ (\forall n\ |\ n_0 \leq n)\ 0 \leq c \cdot g(n) < f(n) \}
-\end{equation*}
-
-~
-
-A medida que $n$ tiende a infinito la relaci\'on entre $f(n)/g(n)$ se vuelve arbitrariamente grande, es decir que tiende a infinito.
-
-\section{Funciones de Complejidad temporal comunes}
-A continuaci\'on se listan las principales categor\'ias de complejidad temporal, en orden creciente:
-\begin{enumerate}
- \item $O(1)$ \textbf{Complejidad constante}: es independiente de los datos de entrada.
- \item $O(lg\ lg\ n)$ \textbf{Complejidad sublogar\'itmica}
- \item $O(lg\ n)$ \textbf{Complejidad logar\'itmica}: suele aparecer en determinados algoritmos con iteraci\'on o recursi\'on (por ejemplo, b\'usqueda binaria). Todos los logaritmos, sea cual sea su base, son del mismo orden, por lo que se representan en cualquier base.
- \item $O(n^c)$ \textbf{Complejidad sublineal} ($0 < c < 1$)
- \item $O(n)$ \textbf{Complejidad lineal}: suele aparecer en bucles simples cuando la complejidad de las operaciones internas es constante o en algunos algoritmos con recursi\'on.
- \item $O(n \cdot lg\ n) = O(lg\ n!)$ \textbf{Complejidad lineal logar\'itmica}: en algunos algoritmos de ``Divide \& Conquer'' (por ejemplo, Mergesort).
- \item $O(n^2)$ \textbf{Complejidad cuadr\'atica}: aparece en bucles o recursiones doblemente anidados.
- \item $O(n^3)$ \textbf{Complejidad c\'ubica}: en bucles o recursiones triples.
- \item $O(n^k)$ \textbf{Complejidad polin\'omica} ($k \geq 1$).
- \item $O(2^n)$ \textbf{Complejidad exponencial}: suele aparecer en subprogramas recursivos que contengan dos o m\'as llamadas recursivas.
- \item $O(n!)$ \textbf{Complejidad factorial}
- \item $O(n^n)$ \textbf{Complejidad potencial exponencial}
-\end{enumerate}
+\textbf{Teorema:}
+Para dos funciones cualesquiera f(n) y g(n), $f(n)= \Theta(g(n))$ si y solo si $f(n)= O(g(n))$ y $f(n)= \Omega(g(n))$
