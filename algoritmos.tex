@@ -1,51 +1,11 @@
 \chapter{Algoritmos}
 
-\section{Eliminaci\'on de la recursi\'on}
-
-La motivaci\'on de la eliminaci\'on de la recursi\'on es b\'asicamente optimizar funciones recursivas mediante distintas formas. Para hacerlo se intentara cumplir ciertos objetivos como no repetir los c\'alculos (generalmente en problemas que presenten sub-estructura \'optima), no recorrer una estructura mas de una vez (o intentar hacerlo la menor cantidad posible de veces) y finalmente eliminar la recursi\'on, ya que si bien una funci\'on iterativa y una recursiva podr\'an tener complejidades asint\'oticamente iguales, en la practica las funciones iterativas son mas o\'ptimas por diferencias de constantes (b\'asicamente por no tener llamadas recursivas).
-
-~
-
-\textbf{Inmersi\'on de rango} Agregar un nuevo par\'ametro de salida a la funci\'on, es decir si la salida original era un entero, ahora sera una dupla de enteros. La idea del nuevo par\'ametro que agregamos es darnos ''algo mas`` que lo estrictamente necesario de forma tal que nos sirva para calcular mas eficientemente otro resultado y as\'i reducir la complejidad. Esta t\'ecnica tambi\'en es conocida como \textbf{generalizaci\'on de funciones}.
-
-~
-
-\textbf{Inmersi\'on de dominio} En este caso agregaremos un par\'ametro de entrada que va conteniendo resultados intermedios. De esta forma podremos optimizar la complejidad de problemas que presenten subestructura \'optima.
-
-~
-
-\textbf{Inmersion de genero} Se ampl\'ia el dominio de alg\'un par\'ametro de la funci\'on. Por ejemplo de naturales a enteros.
-
-~
-
-\textbf{Recursion a cola} Esta sera una clase de funciones recursivas lineales en donde su ultimo paso es la llamada recursiva y adem\'as es \'unica. La propiedad de estas es que pueden ser transformadas autom\'aticamente a funciones iterativas.
-
-~
-
-\textbf{Recursivas lineales no a cola} Son aquellas que tienen una \'unica llamada recursiva (por eso lineales) pero esta no es la ultima operaci\'on. Una funci\'on de este tipo puede ser aquella que tenga un condicional para separar entre el caso base y el caso recursivo. Este tipo de funciones pueden tambi\'en ser convertidas autom\'aticamente.
-
-~
-
-\textbf{Recursivas no lineales} Ser\'an aquellas que tienen mas de una llamada recursiva. Pueden ser \textbf{m\'ultiples} en donde contienen varias llamadas pero no es la ultima operaci\'on o \textbf{anidadas}, las cuales tienen mas de una llamada recursiva pero anidadas y adem\'as la llamada es la ultima operaci\'on.
-
-~
-
-\textbf{Folding/Unfolding} El desplegado consiste en reemplazar la definici\'on de la funci\'on por su expresi\'on. El plegado puede pensarse como la inversa de la anterior. Se trata de reemplazar la definici\'on de una expresi\'on por una llamada a funci\'on.
-
-~
-
-\textbf{Precomputar valores} Por ejemplo, s\'i mi programa va a intentar factorizar, tal vez me convenga tener almacenados los \textit{n} primeros n\'umeros primos.
-
-~
-
-\textbf{Almacenar computos caros} S\'i ya comput\'e resultados caros, puede tener sentido almacenarlos (en memoria o en disco) en lugar de recomputarlos.
-
 \newpage
 \section{Dividir y Conquistar}
 
 La metodolog\'ia consiste en \textbf{dividir} el problema en un numero de subproblemas que son instancias mas chicas del mismo problema, \textbf{conquistar} los subproblemas resolvi\'endolos recursivamente y cuando sean suficientemente chicos resolverlos de una forma directa y \textbf{combinar} las soluciones de los subproblemas en la soluci\'on para el problema original.
 
-Cuando los subproblemas son suficientemente grandes para resolverlos recursivamente, llamaremos al \textbf{caso recursivo}. Una vez que los subproblemas se vuelvan suficientemente chicos, diremos que la recursi\'on ''toco fondo`` y que habremos llegado al \textbf{caso base}. A veces, en adici\'on a los subproblemas que son instancias mas chicas del mismo problema, deberemos resolver problemas que no son exactamente lo mismo que el problema original. Consideraremos resolver dichos subproblemas como una parte del paso de combinaci\'on.
+Cuando los subproblemas son suficientemente grandes llamaremos al \textbf{caso recursivo}. Una vez que los subproblemas se vuelvan suficientemente chicos, diremos que la recursi\'on ''toco fondo`` y que habremos llegado al \textbf{caso base}. A veces, en adici\'on a los subproblemas que son instancias mas chicas del mismo problema, deberemos resolver problemas que no son exactamente lo mismo que el problema original. Consideraremos resolver dichos subproblemas como una parte del paso de combinaci\'on.
 
 \subsection{Recurrencias}
 
@@ -74,7 +34,7 @@ El m\'etodo de substituci\'on para resolver recurrencias se compone de dos pasos
 
 ~
 
-El caso base hace referencia a cuando nuestro arreglo tiene tama\~no $1$, en cuyo caso devolveremos el arreglo sin ejecutar ninguna operaci\'on sobre el, y el caso recursivo hace referencia a la recursi\'on del arreglo sobre cada una de sus mitades (siendo as\'i divide) y luego uni\'endolo en tiempo $n$ (siendo el conquer). En primer lugar vamos a acotar a $n$ por el m\'ultiplo de $2$ mayor o igual mas cercano, quedando as\'i $n \leq 2^k$ para alg\'un $k \in N$. Luego, reescribiremos a $T(n)$ haciendo el reemplazo por $k$.
+El caso base hace referencia a cuando nuestro arreglo tiene tama\~no $1$, en cuyo caso devolveremos el arreglo sin ejecutar ninguna operaci\'on sobre el, y el caso recursivo hace referencia a la recursi\'on del arreglo sobre cada una de sus mitades (siendo as\'i divide) y luego uni\'endolo en tiempo $n$ (siendo el conquer). En primer lugar vamos a acotar a $n$ por la potencia de $2$ mayor o igual m\'as cercana, quedando as\'i $n \leq 2^k$ para alg\'un $k \in N$. Luego, reescribiremos a $T(n)$ haciendo el reemplazo por $k$.
 
 \begin{equation*}
   T(2^k) = \begin{cases}
@@ -172,35 +132,22 @@ Para utilizar el teorema maestro simplemente debemos determinar a que caso perte
  \item En la recurrencia $T(n) = 2T(n/2) + n$, que corresponde al merge sort, tendremos que $a=2$, $b=2$ y $f(n) = n$, por lo que tendremos que $n^{log_b(a)} = n^{log_2(2)} = n$. Luego, esto cae en el segundo caso del teorema ya que $f(n) \subseteq \Theta(n)$, por lo que $T(n) \subseteq \Theta(nlg(n))$.
 \end{itemize}
 
-\subsection{En resumen}
-
-La metodolog\'ia consiste en dividir un problema en problemas similares pero mas chicos, en resolver estos problemas menores hasta que podamos resolverlos de forma ADHOC y luego combinar las soluciones de los problemas menores para obtener la soluci\'on del problema original. Este m\'etodo tiene sentido siempre y cuando la divisi\'on y la combinaci\'on no sean excesivamente caras.
-
-~
-
-El esquema general de dividir y conquistar consiste en:
-
-\begin{itemize}
- \item Si $X$ es suficientemente chico, entonces resolveremos el problema de forma ADHOC.
- \item En caso contrario, haremos una descomposici\'on en sub-instancias $X_1, X_2, ..., X_k$, en donde para cada una tendremos $Y_i \gets DC(X_i)$ sub-soluciones, que luego combinaremos las $Y_i$ soluciones para construir la soluci\'on general para $X$.
-\end{itemize}
-
-\newpage
-
 \section{Ordenamiento}
 
 \subsection{Cota inferior para algoritmos basados en comparaciones}
 
-Una lista de $n$ elementos distintos puede tener $n!$ permutaciones o formas de orden distintas. Luego, una cota arbitrariamente mayor para $n! \leq n \cdot n \cdot ... \cdot n = n^n$ y una cota arbitrariamente menor podr\'a ser $n! \geq n/2 \cdot n/2 \cdot ... \cdot n/2 = n/2^{n/2}$. Luego, ambas cotas perteneceran a $\Theta(n log(n))$ si les aplicamos un logaritmo, lo que nos implicara que $log(n!) \in \Theta(n lg(n))$.
-Todas las decisiones estar\'an basadas en comparar claves, t\'ipicamente mediante ifs, es decir que est\'an basadas en resultados booleanos. Un algoritmo de ordenamiento correcto debe generar una secuencia distinta de comparaciones booleanas para cada permutaci\'on distinta de $1.. n$. Como habr\'a $n!$ diferentes permutaciones en una secuencia de $n$ elementos, deberemos tener $n!$ secuencias distintas de comparaciones. Si un algoritmo hace $\leq d$ preguntas booleanas, generara $\leq 2^d$ secuencias distintas de respuestas booleanas, y por lo tanto:
+\textbf{Teorema}: cualquier algoritmo ordenamiento n elementos basado en comparaciones tiene complejidad $\Omega(n log n)$.
 
-\begin{equation*}
- n! \leq 2^d \implies lg_2(n!) \leq d \implies d \in \Omega(n \cdot lg(n))
-\end{equation*}
+\textbf{Demostraci\'on}: \\
+\indent \textit{Obs:} Dados n elementos existen n! posibles permutaciones. \\
+El arbol de decisi\'on representa las comparaciones ejecutadas por el algoritmo de sorting para un input dado. Cada hoja corresponde a una de las posibles permutaciones. Por lo tanto hay n! hojas. \\
+El camino m\'as largo en el arbol de decisi\'on representa el n\'umero de comparaciones que el algoritmo tiene que realizar en peor caso.
+Adem\'as sabemos que $\#Hojas(a) \leq 2^{Altura(a)}$. Entonces tenemos:
 
-~
+$ n! \leq 2^{h}  \Rightarrow h \geq log(n!)  \Rightarrow h = \Omega(n lg n)$
 
-No podremos preguntar $d$ preguntas en menos de $d$ tiempo, si suponemos un tiempo acotado para cada preguntar, por lo que el algoritmo gasta $\Theta(d)$ tiempo preguntando $d$ preguntas. Por lo que todo algoritmo de ordenamiento basado en comparaciones toma en el peor caso $\Omega(n \cdot lg(n))$ tiempo. Algoritmos mas r\'apidos que estos deber\'an hacer decisiones de $q$-caminos para un $q$ grande.
+As\'i que el tiempo de ejectuci\'on de un algoritmo de sorting basados en comparaciones est\'a acotado inferiormente por n lg n.
+
 
 \subsection{Insertion sort}
 
@@ -215,9 +162,7 @@ utilizando la representaci\'on cl\'asica del Heap sort, deberemos invertir el or
 
 \subsection{Mergesort}
 
-Mergesort es el algoritmo de ordenamiento Divide and Conquer por excelencia. El mismo comenzara con una lista de $I$ elementos, la cual \textbf{dividir\'a} a la mitad por un total de $\lceil lg(n) \rceil$ veces. Una vez llegado al caso base, el cual tendr\'a un arreglo trivialmente ordenado de $1$ elemento, utilizara merge para combinar los resultados parciales de cada divisi\'on y de esta forma obtener el resultado al problema original. La funci\'on de recursi\'on para este algoritmo sera de $T(n) = 2 \cdot T(n/2) + \Theta(n)$, que por el teorema maestro siendo $a=2$, $b=n/2$ y $f(n) = n$, nos quedara que $n^{lg_b(a)} = n^{lg_2(2)} = n^1$, por lo que se ajustara al segundo caso del teorema ya que $f(n) \subseteq O(n)$ lo que implicara que $T(n) \subseteq \Theta(n \cdot lg(n))$. Si bien Mergesort funcionara bien para listas y arreglos en el tiempo dado anteriormente, no es un algoritmo de ordenamiento in-sort, por lo que utilizara memoria adicional, lo que es para considerar ya que para arreglos habr\'a otras
-soluciones
-mejores en lo que respecta a espacio.
+Mergesort es el algoritmo de ordenamiento Divide and Conquer por excelencia. El mismo comenzara con una lista de $I$ elementos, la cual \textbf{dividir\'a} a la mitad por un total de $\lceil lg(n) \rceil$ veces. Una vez llegado al caso base, el cual tendr\'a un arreglo trivialmente ordenado de $1$ elemento, utilizara merge para combinar los resultados parciales de cada divisi\'on y de esta forma obtener el resultado al problema original. La funci\'on de recursi\'on para este algoritmo sera de $T(n) = 2 \cdot T(n/2) + \Theta(n)$, que por el teorema maestro siendo $a=2$, $b=n/2$ y $f(n) = n$, nos quedara que $n^{lg_b(a)} = n^{lg_2(2)} = n^1$, por lo que se ajustara al segundo caso del teorema ya que $f(n) \subseteq O(n)$ lo que implicara que $T(n) \subseteq \Theta(n \cdot lg(n))$. Si bien Mergesort funcionara bien para listas y arreglos en el tiempo dado anteriormente, no es un algoritmo de ordenamiento in-place (utilizara memoria adicional) lo que es para considerar ya que para arreglos habr\'a otras soluciones mejores en lo que respecta a espacio.
 
 \subsection{Quick sort}
 
@@ -232,8 +177,6 @@ Esto se puede ver ya que el caso peor (para obtener complejidad cuadr\'atica) se
 Como contraparte, el caso mejor se da cuando para cada llamada recursiva elegimos como pivot al mediano del arreglo.
 Para el caso promedio, podr\'iamos pensar en un input proveniente de una distribuci\'on uniforme. O sea, que la probabilidad de que el elemento i-\'esimo sea el pivot es 1/n, en cuyo caso la complejidad del algoritmo nos quedar\'ia $O(n*log(n))$.
 Pero no siempre podemos suponer que el input proviene de una distribuci\'on uniforme. S\'i ese no es el caso, podemos forzarlo de alguna forma. Por ejemplo: permutando el input, o eligiendo el pivot al azar.
-
-\subsection{Bubble sort}
 
 \subsection{Bucket sort}
 
@@ -303,10 +246,51 @@ Cada iteraci\'on en un radix sort inspecciona $lg_2(q)$ bits de cada clave. Si u
 
 El criterio para elegir $q$ sera de forma tal que $q \in O(n)$, de forma tal que cada iteraci\'on tome tiempo lineal. Si hacemos $q$ suficientemente grande, la cantidad de iteraciones sera chica, por lo que deberemos elegir $q$ proporcional a $n$. Si hacemos esta elecci\'on la complejidad total de radix sort nos quedara de la forma $O(n + \lceil \frac{b \cdot n}{lg(n)} \rceil)$, si por otro lado podemos considerar a $b$ como una constante, el ordenamiento tomara tiempo lineal. Por otro lado si queremos usar menos memoria podr\'iamos usar $q$ proporcional a $\sqrt{n}$, redondeada a la potencia de $2$ mas cercana lo que incrementara la cantidad de iteraciones necesarias al doble pero decrementara la memoria que utilizamos de forma potencial.
 
-\newpage
+\section{Eliminaci\'on de la recursi\'on}
+
+La motivaci\'on de la eliminaci\'on de la recursi\'on es b\'asicamente optimizar funciones recursivas mediante distintas formas. Para hacerlo se intentara cumplir ciertos objetivos como no repetir los c\'alculos (generalmente en problemas que presenten sub-estructura \'optima), no recorrer una estructura mas de una vez (o intentar hacerlo la menor cantidad posible de veces) y finalmente eliminar la recursi\'on, ya que si bien una funci\'on iterativa y una recursiva podr\'an tener complejidades asint\'oticamente iguales, en la practica las funciones iterativas son mas o\'ptimas por diferencias de constantes (b\'asicamente por no tener llamadas recursivas).
+
+~
+
+\textbf{Inmersi\'on de rango} Agregar un nuevo par\'ametro de salida a la funci\'on, es decir si la salida original era un entero, ahora sera una dupla de enteros. La idea del nuevo par\'ametro que agregamos es darnos ''algo mas`` que lo estrictamente necesario de forma tal que nos sirva para calcular mas eficientemente otro resultado y as\'i reducir la complejidad. Esta t\'ecnica tambi\'en es conocida como \textbf{generalizaci\'on de funciones}.
+
+~
+
+\textbf{Inmersi\'on de dominio} En este caso agregaremos un par\'ametro de entrada que va conteniendo resultados intermedios. De esta forma podremos optimizar la complejidad de problemas que presenten subestructura \'optima.
+
+~
+
+\textbf{Inmersion de genero} Se ampl\'ia el dominio de alg\'un par\'ametro de la funci\'on. Por ejemplo de naturales a enteros.
+
+~
+
+\textbf{Recursion a cola} Esta sera una clase de funciones recursivas lineales en donde su ultimo paso es la llamada recursiva y adem\'as es \'unica. La propiedad de estas es que pueden ser transformadas autom\'aticamente a funciones iterativas.
+
+~
+
+\textbf{Recursivas lineales no a cola} Son aquellas que tienen una \'unica llamada recursiva (por eso lineales) pero esta no es la ultima operaci\'on. Una funci\'on de este tipo puede ser aquella que tenga un condicional para separar entre el caso base y el caso recursivo. Este tipo de funciones pueden tambi\'en ser convertidas autom\'aticamente.
+
+~
+
+\textbf{Recursivas no lineales} Ser\'an aquellas que tienen mas de una llamada recursiva. Pueden ser \textbf{m\'ultiples} en donde contienen varias llamadas pero no es la ultima operaci\'on o \textbf{anidadas}, las cuales tienen mas de una llamada recursiva pero anidadas y adem\'as la llamada es la ultima operaci\'on.
+
+~
+
+\textbf{Folding/Unfolding} El desplegado consiste en reemplazar la definici\'on de la funci\'on por su expresi\'on. El plegado puede pensarse como la inversa de la anterior. Se trata de reemplazar la definici\'on de una expresi\'on por una llamada a funci\'on.
+
+~
+
+\textbf{Precomputar valores} Por ejemplo, s\'i mi programa va a intentar factorizar, tal vez me convenga tener almacenados los \textit{n} primeros n\'umeros primos.
+
+~
+
+\textbf{Almacenar computos caros} S\'i ya comput\'e resultados caros, puede tener sentido almacenarlos (en memoria o en disco) en lugar de recomputarlos.
+
+
+
 \section{Algoritmos para memoria secundaria}
 
-En \'esta secci\'on vamos a considerar los casos en los cuales trabajamos con memoria secundaria. S\'i bien los problemas abstractos siguen siendo los mismos, el volumen de los datos hace que se encuentren necesariamente en memoria secundaria. 
+En \'esta secci\'on vamos a considerar los casos en los cuales trabajamos con memoria secundaria. S\'i bien los problemas abstractos siguen siendo los mismos, el volumen de los datos hace que se encuentren necesariamente en memoria secundaria.
 
 Las principales caracter\'isticas de \'estos dispositivos son:
  \begin{enumerate}
